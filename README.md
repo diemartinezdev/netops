@@ -2,7 +2,7 @@
 
 A full-stack dashboard that simulates a customer-facing network operations platform for an enterprise connectivity provider. Users monitor customer sites, service status, incidents and invoices.
 
-Built as a portfolio project to demonstrate senior-level frontend engineering with a strong backend to match: React + Next.js + TypeScript on the front, C# / .NET 10 on the back, with a feature-based architecture, tests, accessibility and performance baked in.
+🛠️ React + Next.js + TypeScript on the front, C# / .NET 10 on the back, with a feature-based architecture, tests, accessibility and performance baked in.
 
 ---
 
