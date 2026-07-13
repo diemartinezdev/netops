@@ -47,6 +47,7 @@ A full-stack dashboard that simulates a customer-facing network operations platf
 - [Accessibility](#accessibility)
 - [Performance](#performance)
 - [Security considerations](#security-considerations)
+- [Interview walkthrough](#interview-walkthrough)
 - [AI usage](#ai-usage)
 - [Future improvements](#future-improvements)
 
@@ -374,6 +375,20 @@ Things that would need to be added for a real deployment (deliberately out of sc
 - Rate limiting on the API.
 - Secrets management (Azure Key Vault, AWS Secrets Manager or equivalent).
 - Structured audit logging on state-changing endpoints (`PATCH /api/incidents/{id}/status`).
+
+---
+
+## Interview walkthrough
+
+A good five-minute tour of the project:
+
+1. **Dashboard** — explain the domain: an enterprise connectivity provider monitoring customer sites, incidents and invoices. Point at the summary cards, the recent incidents feed and the worst-performing sites list.
+2. **Sites list** — show the filters and the URL. Bookmark or share a URL like `/sites?status=degraded&sortBy=uptime`; reload and prove the state survives. Call out the debounced search and `keepPreviousData` (no skeleton flash on page changes).
+3. **Site detail** — click a row. Three queries fetched in parallel (site + services + incidents), each with its own loading state. No fetch waterfall.
+4. **Incidents** — change a row's status. The UI updates immediately (optimistic), a small spinner shows the request in flight, and — critically — going back to the Dashboard shows the "Open incidents" counter has decremented. That's `updateTag`-style cache invalidation working end-to-end.
+5. **Swagger** — open `http://localhost:5102/swagger` and walk the API surface. Highlight `PagedResult<T>`, the enum contract (`"in_progress"`, `"4g"`), and the validation on `PATCH /api/incidents/{id}/status`.
+
+Total: ~5 minutes. Every click is a decision worth justifying.
 
 ---
 
